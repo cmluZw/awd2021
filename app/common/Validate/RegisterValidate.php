@@ -3,14 +3,14 @@
 namespace app\common\Validate;
 use think\Validate;
 
-class UserValidate extends Validate
+class RegisterValidate extends Validate
 {
     protected $rule = [
 //        'username'  => 'require|chsAlphaNum|length:6,30',
         'username'  => 'require|chsAlphaNum',
         'password'   => 'require|length:6,30',
 //        'verifyCode'   => 'require|length:4',
-//        'email' => 'email',
+        'email' => 'email',
     ];
     protected $message  =   [
         'username.require' => '用户名必须填写',
@@ -20,7 +20,7 @@ class UserValidate extends Validate
         'password.length'   => '密码必须6-30个字符',
 //        'verifyCode.require'   => '验证码必须填写',
 //        'verifyCode.length'   => '验证码必须5位',
-//        'email'        => '邮箱格式错误',
+        'email'        => '邮箱格式错误',
     ];
 
 }

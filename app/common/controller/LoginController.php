@@ -2,46 +2,108 @@
 
 namespace app\common\controller;
 
+use app\common\Validate\RegisterValidate;
 use app\common\Validate\UserValidate;
 use app\Request;
+use app\common\model;
+use app\BaseController;
+use think\facade\Session;
+use \think\facade\View;
+use app\common\CommonController;
 
-class LoginController
+class LoginController extends BaseController
 {
+
+
     public function index()
     {
-        return view('common@LoginController/login');
-    }
-
-
-    public function checklogin( Request $request)
-    {
-        $username=$request->param('username');
-        $password=$request->param('password');
-        echo $username.'  '.$password;
-        $data = $request->post();
-        try {
-            validate(UserValidate::class)->check([
-                'username'  => $username,
-                'password' => $password,
-//                'verifyCode' => $verifyCode,
-            ]);
-            $check=model('UserModel')->checkuser($data);
-
-            if ($check=='登录成功'){
-                    return '登录成功';
-            }else{
-                throw new \Exception("非法提交");
-            }
-            $code=200;$msg='登录成功';
-        } catch (ValidateException $e) {
-            return ['code'=>-200,'msg'=>$e->getError()];
-        } catch (\Exception $e) {
-            // 这是进行异常捕获
-            return ['code'=>-200,'msg'=>$e->getMessage()];
+        $username=Session::get('username');
+        //成功传入session
+        if(!$username)
+        {
+            redirect('login')->send();
         }
+        else
+        {
+//              View::assign('username',$username);
+//              return View::fetch();//成功
+            session('user',$username);
+            return redirect('../UserinfoController/index')->with('user',$username);
+        }
+    }
 
 
+    public function  login()
+    {
+        $username= Session::get('username');
+        if(!$username) {
+            return view('common@login_controller/login');
+        }
+        else
+            {
+
+                return redirect('index')->with('username',$username);
+            }
+    }
+
+    public function checklogin(Request $request)
+    {
+        $data = $request->post();
+        $res = validate(UserValidate::class)->check($data);
+        if($res!==true)
+        {
+            return '输入错误';
+        }
+        $userModel=new model\UserModel();
+        $checkuser = $userModel->checklogin($data);
+        if($checkuser=="登录成功")
+        {
+            Session::set('username',$data['username']);
+            return redirect('index')->with('username',$data['username']);
+
+
+        }
+        return view('common@login_controller/login');
 
     }
+
+
+    public function register (Request $request)
+    {
+        $data=$request->post();
+        if (empty($data)) {
+            return view('common@login_controller/register');
+        } else {
+            if ($data['password'] !== $data['repassword']) {
+                echo '两次密码不相同';
+                return view('common@login_controller/register');
+            }
+            $res = validate(RegisterValidate::class)->check($data);
+            if ($res !== true) {
+                echo  $res;
+                return view('common@login_controller/register');
+            }
+            $userModel = new model\UserModel();
+            $checkuser = $userModel->checkregister($data);
+            dump($checkuser);
+            if($checkuser!=='注册成功')
+            {
+                return view('common@login_controller/login');
+            }
+
+        }
+    }
+
+    public function logout()
+    {
+        session('user', null);
+        return view('common@login_controller/login');
+    }
+
+    /*
+     * 用于创建session和获取session
+     */
+
+
 
 }

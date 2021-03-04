@@ -6,6 +6,6 @@ class Demo
 {
     public function index()
     {
-        return 'hello';
+        return 'hi';
     }
 }
