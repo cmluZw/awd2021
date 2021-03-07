@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../public/static/login.css">
+    <title>加入战队</title>
+</head>
+<body>
+<div class="title"><b>加入战队</b></div>
+<!--<form action="logout">-->
+<!--    <button>退出登录</button>-->
+<!--</form>-->
+
+<form method="POST" action="jointeam">
+    <div class="center">
+        <input type="text" id="name" placeholder="队伍邀请码..." name="team_code"><br>
+    </div>
+    <div class="button_row">
+        <button>加入队伍</button>
+    </div>
+    <a href="createteamview">无人邀请？创建战队</a>
+</form>
+</body>
+</html>

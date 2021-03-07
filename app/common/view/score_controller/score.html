@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排行榜</title>
+    <link rel="stylesheet" type="text/css" href="../../../../public/static/match.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../../public/static/match.js"></script>
+</head>
+<body>
+<h1>当前比赛名称</h1>
+<div class="center">
+    <div>
+        <div class="range_box">
+            <div>
+                <img src="../../../../public/static/jb.ico" class="icon">
+                <label>排行榜</label>
+            </div>
+            <div class="divider">
+                <span class="line"></span>
+                <span class="time">截止时间：</span>
+                <span class="line"></span>
+            </div>
+            <div class="range">
+                <div class="range_th">
+                    <span class="num">排名</span>
+                    <span class="name">队伍名</span>
+                    <span>解题数</span>
+                    <span>分数</span>
+                </div>
+                <div class="range_td one">
+                    <span class="num"><img src="../../../../public/static/star.ico" class="first"></span>
+                    <span class="name">{$team_name[0]|raw}</span>
+                    <span>{$solve_num[0]|raw}</span>
+                    <span>{$grade[0]}</span>
+                </div>
+                <div class="range_td two">
+                    <span class="num">2</span>
+                    <span class="name">{$team_name[1]|raw}</span>
+                    <span>{$solve_num[1]|raw}</span>
+                    <span>{$grade[1]|raw}</span>
+                </div>
+                <div class="range_td three">
+                    <span class="num">3</span>
+                    <span class="name">{$team_name[2]|raw}</span>
+                    <span>{$solve_num[2]|raw}</span>
+                    <span>{$grade[2]|raw}</span>
+                </div>
+                <div id="range_list"></div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="time-item">
+            <span id="day_show">0天</span>
+            <strong id="hour_show">0时</strong>
+            <strong id="minute_show">0分</strong>
+            <strong id="second_show">0秒</strong>
+        </div>
+    </div>
+</div>
+</body>
+</html>
