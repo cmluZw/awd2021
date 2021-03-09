@@ -6,7 +6,7 @@
     <title>排行榜</title>
     <link rel="stylesheet" type="text/css" href="../../../../public/static/match.css">
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="../../../../public/static/match.js"></script>
+<!--    <script src="../../../../public/static/match.js"></script>-->
 </head>
 <body>
 <h1>当前比赛名称</h1>
@@ -47,13 +47,23 @@
                     <span>{$solve_num[2]|raw}</span>
                     <span>{$grade[2]|raw}</span>
                 </div>
-                <div id="range_list"></div>
+                <?php
+                for($j=3;$j<$i;$j++)
+                {
+                echo "<div class=\"range_td\"><span id=\"rank\" class=\"num\">$j</span>";
+                echo "<span id=\"name\" class=\"name\">$team_name[$j]</span>";
+                echo "<span id=\"num\">$solve_num[$j]</span>";
+                echo "<span id=\"score\">$grade[$j]</span>";
+                echo "</span></div>";
+                }
+            ?>
             </div>
         </div>
     </div>
     <div class="right">
         <div class="time-item">
-            <span id="day_show">0天</span>
+            <span>比赛持续到:</span>
+<!--            <span id="day_show">0天</span>-->
             <strong id="hour_show">0时</strong>
             <strong id="minute_show">0分</strong>
             <strong id="second_show">0秒</strong>
