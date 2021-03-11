@@ -4,6 +4,7 @@ namespace app\common\controller;
 
 
 use app\common\model\SubmitModel;
+use app\Request;
 use think\facade\View;
 
 class SubmitController
@@ -14,19 +15,24 @@ class SubmitController
         return View::fetch('common@submit_controller/index');
     }
 
-    public function submitflag()
+    public function submitflag(Request $request)
     {
-        $flag='978';
-        $MI_id=2;
-        $token='867uytrgd';
-        $T_id='100016';
-        $attack_T_id='100001';
-//        $index= 被攻击的t_id+flag几；
-        $index='flag1';
+        $data=$request->post();
+        $flag=$data['flag'];
+        $token=$data['token'];
         $submitModel=new SubmitModel();
-        $res=$submitModel->add_submit($index,$attack_T_id,$T_id,$MI_id);
+        $MI_id=$submitModel->getM_id();
+        $res=$submitModel->submit($flag,$token,$MI_id);
         var_dump($res);
-
+//        if($res!=='提交成功')
+//        {
+//            echo $res;
+//        }
+//        else
+//        {
+//        $res=$submitModel->add_grade($token);
+//        echo '提交成功';
+//        }
     }
 
 

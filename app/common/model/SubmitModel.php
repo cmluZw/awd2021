@@ -21,65 +21,103 @@ class SubmitModel
             ['T_id','<>',$T_id],
             ['MI_id','=',$MI_id]
         ])->selectOrFail()->toArray();
-
+        $k=0;
+        $index2=0;
+        /*
+         * 设置为旗帜，用于判断是否全部查完flag;
+         * */
+        $i=1;
         foreach ($arr as $flag_arr)
         {
-            $i=1;
-            for($j=0;$j<5;$j++) {
+//            $index = 'flag' . $i;
+            for($j=1;$j<6;$j++) {
                 $index = 'flag' . $i;
-                if ($flag_arr[$index] == $flag)
-                {
-                    return '提交成功';
-//                    echo 'flag'.$i;
-                }
-                else
-                {
-                    return '没有该flag';
-                }
+                    if ($flag_arr[$index] == $flag) {
+                        $k=1;
+                        $index2=$index;
+                        break;
+                    }
                 $i++;
             }
+
         }
+        $attach_T_id = Db::table('flag')->where($index2, $flag)->value('T_id');
+        if(!$attach_T_id)
+        {
+            return '数据库错误';
+        }
+        $result = $this->add_submit($index, $attach_T_id, $T_id, $MI_id);
+        return $result;
+
     }
 
     public function add_submit($index,$attack_T_id,$T_id,$MI_id)
     {
+        $update=$T_id.$index.',';
+        /*
+         * 找出被攻击的队伍的submit
+         * */
         $submit = Db::table('match')->where([
             ['T_id', '=', $attack_T_id],
             ['MI_id', '=', $MI_id],
-        ])->value('submit');
+            ])->value('submit');
+             /*
+             * 找出被攻击者的M_id，通过M_id为唯一标识符来对数据库中的submit进行更新
+             * */
+        $M_id=Db::table('match')->where([
+            ['T_id', '=', $attack_T_id],
+            ['MI_id', '=', $MI_id],
+        ])->value('M_id');
         if ($submit == null) {
             $res = Db::name('match')
-                ->where([
-                    ['T_id', $attack_T_id],
-                    ['MI_id', $MI_id]
-                ])
-                ->update(['submit' => 'thinkphp']);
-            return $res;
-//            if(!$res)
-//            {
-//                return '没有进行插入';
-//            }
-//            return  '插入成功';
-//        }
-//        $submit = explode(',',$submit);
-//        if(in_array($T_id,$submit,true))
-//        {
-//            echo '已经提交过该flag';
-//        }
-//        else
-//        {
-//            $res=Db::name('match')->where([
-//                ['T_id','=',$attack_T_id],
-//                ['MI_id','=',$MI_id],
-//            ])->exp('submit','submit+$T_id.$index.','')->update();
-//            if(!$res)
-//            {
-//                echo '没有进行插入';
-//            }
-//            echo '提交成功';
-//        }
+                ->where('M_id',$M_id)
+                ->update(['submit'=>$update]);
+            if(!$res)
+            {
+                return '没有进行插入';
+            }
+            return   '提交成功';
         }
-    }
+        $submit1=$submit;
+        $submit = explode(',',$submit);//以，为分界打乱
+        $update=substr($update, 0, -1);//去掉最后的,
+        if(in_array($update,$submit,true))
+        {
+            return '已经提交过该flag';
+        }
+        else
+        {
+            $update=$submit1.$update.',';
+            $res = Db::name('match')
+                ->where('M_id',$M_id)
+                ->update(['submit'=>$update]);
+            if(!$res)
+            {
+                return '没有进行插入';
+            }
+            return '提交成功';
+        }
+        }
+
+
+        public function add_grade($token)
+        {
+            $res=Db::table('match')
+                ->where('token', $token)
+                ->inc('grade', 50)
+                ->update();
+        }
+
+        public function getM_id()
+        {
+            $MI_id=Db::table('match_info')->where('is_run',1)->value('MI_id');
+            if(!$MI_id)
+            {
+                return '当前无比赛进行';
+            }
+            return $MI_id;
+        }
+
 
     
 }
