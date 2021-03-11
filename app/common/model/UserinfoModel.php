@@ -39,6 +39,19 @@ class UserinfoModel
             return '邀请码错误';
         }
         $T_id=$data['T_id'];
+        $now_num=Db::table('team')->where('T_id',$T_id)->value('now_num');
+        if($now_num>=4)
+        {
+            return '战队人数已满，无法加入';
+        }
+        $res=Db::table('team')
+            ->where('T_id', $T_id)
+            ->inc('now_num', 1)
+            ->update();
+        if(!$res)
+        {
+            return '加入队伍失败';
+        }
         $result=Db::name('user')
             ->where('username', $username)
             ->update(['T_id' => $T_id]);

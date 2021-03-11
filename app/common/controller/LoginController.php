@@ -28,7 +28,7 @@ class LoginController extends BaseController
 //              View::assign('username',$username);
 //              return View::fetch();//成功
             session('user',$username);
-            return redirect('../UserinfoController/index')->with('user',$username);
+            return redirect('../UserinfoController/index');
         }
     }
 
@@ -42,7 +42,7 @@ class LoginController extends BaseController
         else
             {
 
-                return redirect('index')->with('username',$username);
+                return redirect('index');
             }
     }
 
@@ -59,7 +59,7 @@ class LoginController extends BaseController
         if($checkuser=="登录成功")
         {
             Session::set('username',$data['username']);
-            return redirect('index')->with('username',$data['username']);
+            return redirect('index');
 
 
         }

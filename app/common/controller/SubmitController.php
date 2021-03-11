@@ -23,16 +23,16 @@ class SubmitController
         $submitModel=new SubmitModel();
         $MI_id=$submitModel->getM_id();
         $res=$submitModel->submit($flag,$token,$MI_id);
-        var_dump($res);
-//        if($res!=='提交成功')
-//        {
-//            echo $res;
-//        }
-//        else
-//        {
-//        $res=$submitModel->add_grade($token);
-//        echo '提交成功';
-//        }
+//        var_dump($res);
+        if($res!=='提交成功')
+        {
+            echo $res;
+        }
+        else
+        {
+        $res=$submitModel->add_grade($token);
+        echo '提交成功';
+        }
     }
 
 
