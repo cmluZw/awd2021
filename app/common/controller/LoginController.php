@@ -27,7 +27,7 @@ class LoginController extends BaseController
         {
 //              View::assign('username',$username);
 //              return View::fetch();//成功
-            session('user',$username);
+            Session::set('user',$username);
             return redirect('../UserinfoController/index');
         }
     }
@@ -96,7 +96,7 @@ class LoginController extends BaseController
 
     public function logout()
     {
-        session('user', null);
+        Session::set('user',null);
         return view('common@login_controller/login');
     }
 

@@ -7,35 +7,28 @@ use app\admin\model\LoginModel;
 use app\admin\Validate\LoginValidate;
 use app\BaseController;
 use app\Request;
-use think\facade\Cookie;
+use think\facade\Session;
 use think\facade\View;
 
 class LoginController extends BaseController
 {
-
     public function index()
     {
-
-        $username=Cookie::get('username');
+        $username=Session::get('admin');
         if($username)
         {
-            return 'hello';
+            return redirect('../AdminController/index');
         }
         else
         {
-            return View::fetch('login');
+            return view('admin@login_controller/login');
         }
-    }
-
-    public function viewlogin()
-    {
-
     }
 
 
     public function login(Request $request)
     {
-        $username=Cookie::get('username');
+        $username=Session::get('admin');
         if($username)
         {
             return redirect('index');
@@ -46,17 +39,16 @@ class LoginController extends BaseController
         {
             return '输入错误';
         }
-        var_dump($data);
+//        var_dump($data);
         $loginmodel=new LoginModel();
         $res = $loginmodel->check_login($data);
 //        var_dump($res);
         if($res!="登录成功")
         {
-            return view('admin@login_controller/login');
+            return view('admin@login_controller/index');
         }
-        Cookie::set('username',$data['username'],43,200);
+        Session::set('admin',$data['username']);
         return redirect('index');
-
     }
 
 

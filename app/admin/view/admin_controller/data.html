@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../../../../public/static/match.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<h1>后台管理·数据</h1>
+<div class="center">
+    <div>
+        <div class="range_box">
+            <div>
+                <img src="../../../../public/static/jb.ico" class="icon">
+                <label>当前比赛进程</label>
+            </div>
+            <span class="range">
+                <div class="range_th">
+                    <span class="num">比赛信息ID</span>
+                    <span class="name">比赛名称</span>
+                    <span>结束时间</span>
+                    <span>是否进行中</span>
+                </div>
+                <?php
+                foreach($all_match_info as $arr)
+                {
+                $M_id=$arr['MI_id'];
+                $match_name=$arr['match_name'];
+                $end_time=$arr['end_time'];
+                $is_run=$arr['is_run'];
+                echo "<div class=\"range_td\"><span id=\"rank\" class=\"num\">$M_id</span>";
+                echo "<span id=\"name\" class=\"name\">$match_name</span>";
+                echo "<span id=\"num\">$end_time</span>";
+                echo "<span id=\"score\">$is_run</span>";
+                echo "</span></div>";
+            }
+            ?>
+        </div>
+    <div class="range_box">
+        <div>
+            <img src="../../../../public/static/jb.ico" class="icon">
+            <label>flag表</label>
+        </div>
+        <span class="range">
+                <div class="range_th">
+                    <span>flagID</span>
+                    <span>T_id</span>
+                    <span>MI_id</span>
+                    <span>flag1</span>
+                    <span>flag2</span>
+                    <span>flag3</span>
+                    <span>flag4</span>
+                    <span>flag5</span>
+
+                </div>
+            <?php
+                foreach($all_flag as $flag)
+                {
+                $f_id=$flag['f_id'];
+                $flag1=$flag['flag1'];
+                $flag2=$flag['flag2'];
+                $flag3=$flag['flag3'];
+                $flag4=$flag['flag4'];
+                $flag5=$flag['flag5'];
+                $T_id=$flag['T_id'];
+                $MI_id=$flag['MI_id'];
+                echo "<div class=\"range_td\"><span>$f_id</span>";
+                echo "<span>$T_id</span>";
+                echo "<span>$MI_id</span>";
+                echo "<span>$flag1</span>";
+                echo "<span>$flag2</span>";
+                echo "<span>$flag3</span>";
+                echo "<span>$flag4</span>";
+                echo "<span>$flag5</span>";
+                echo "</span></div>";
+    }
+    ?>
+</div>
+<div class="range_box">
+    <div>
+        <img src="../../../../public/static/jb.ico" class="icon">
+        <label>match表</label>
+    </div>
+    <span class="range">
+                <div class="range_th">
+                    <span>比赛ID</span>
+                    <span>队伍ID</span>
+                    <span>比赛信息ID</span>
+                    <span>分数</span>
+                    <span>TOKEN</span>
+                </div>
+        <?php
+                foreach($all_match as $match)
+                {
+                $M_id=$match['M_id'];
+                $T_id=$match['T_id'];
+                $MI_id=$match['MI_id'];
+                $grade=$match['grade'];
+                $token=$match['token'];
+                echo "<div class=\"range_td\"><span>$f_id</span>";
+                echo "<span>$M_id</span>";
+                echo "<span>$T_id</span>";
+                echo "<span>$MI_id</span>";
+                echo "<span>$grade</span>";
+                echo "<span>$token</span>";
+                echo "</span></div>";
+}
+?>
+</div>
+<div class="range_box">
+    <div>
+        <img src="../../../../public/static/jb.ico" class="icon">
+        <label>队伍表</label>
+    </div>
+    <span class="range">
+                <div class="range_th">
+                    <span>队伍ID</span>
+                    <span>队伍名</span>
+                    <span>当前人数</span>
+                    <span>队伍邀请码</span>
+                </div>
+        <?php
+                foreach($all_team as $team)
+                {
+                $T_id=$team['T_id'];
+                $team_name=$team['team_name'];
+                $now_num=$team['now_num'];
+                $team_code=$team['team_code'];
+                echo "<div class=\"range_td\"><span>$T_id</span>";
+                echo "<span>$team_name</span>";
+                echo "<span>$now_num</span>";
+                echo "<span>$team_code</span>";
+                echo "</span></div>";
+}
+?>
+</div>
+    </div>
+</div>
+<div class="right">
+
+</div>
+</div>
+</body>
+</html>

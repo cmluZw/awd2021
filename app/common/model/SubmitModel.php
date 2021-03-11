@@ -30,16 +30,15 @@ class SubmitModel
         foreach ($arr as $flag_arr)
         {
 //            $index = 'flag' . $i;
-            for($j=1;$j<6;$j++) {
-                $index = 'flag' . $i;
-                    if ($flag_arr[$index] == $flag) {
+            for($j=1;$j<=6;$j++) {
+                $index = 'flag' . $j;
+                    if (@$flag_arr[$index] == $flag) {
                         $k=1;
                         $index2=$index;
                         break;
                     }
-                $i++;
             }
-
+            $i++;
         }
         $attach_T_id = Db::table('flag')->where($index2, $flag)->value('T_id');
         if(!$attach_T_id)

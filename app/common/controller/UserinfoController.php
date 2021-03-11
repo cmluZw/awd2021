@@ -22,7 +22,7 @@ class UserinfoController
         $username=Session::get('user');
         View::assign('username',$username);
         $this->getuserinfo();
-        session('username',$username);
+        Session::set('username',$username);
         return View::fetch();
 
     }

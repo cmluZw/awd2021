@@ -12,7 +12,7 @@ class ScoreModel
         {
             return '当前无比赛进行';
         }
-        $match_arr=Db::table('match')->where('MI_id',$MI_id)->selectOrFail()->toArray();
+        $match_arr=Db::table('match')->where('MI_id',$MI_id)->select()->toArray();
 
         /*
          * 对查出的数据进行排序，分数为第一排序，结题数量为第二排序

@@ -8,10 +8,10 @@ use think\facade\View;
 
 class ScoreController extends BaseController
 {
-    public function scoreview()
-    {
-        return View::fetch('test');
-    }
+//    public function scoreview()
+//    {
+//        return View::fetch('test');
+//    }
 
     public function getscore()
     {
