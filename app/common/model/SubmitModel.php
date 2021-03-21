@@ -7,6 +7,17 @@ use think\facade\Db;
 
 class SubmitModel
 {
+    public function check_is_team($username)
+    {
+        $t_id=Db::table('user')->where('username',$username)->value('T_id');
+        if($t_id==null)
+        {
+            return 0;
+        }
+        return $t_id;
+    }
+
+
     public function submit($flag,$token,$MI_id)
     {
         $T_id=Db::table('match')->where([

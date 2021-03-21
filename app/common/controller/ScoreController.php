@@ -17,6 +17,10 @@ class ScoreController extends BaseController
     {
         $scoremodel=new ScoreModel();
         $match_arr=$scoremodel->getscore();
+        if(!$match_arr)
+        {
+            return '当前无比赛进行或者当前无队伍加入比赛';
+        }
         $team_name=$scoremodel->getteam_name($match_arr);
         $i=0;
         foreach ($match_arr as $arr)

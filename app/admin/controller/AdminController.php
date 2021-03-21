@@ -4,6 +4,8 @@ namespace app\admin\controller;
 
 use app\admin\model\AdminModel;
 use app\BaseController;
+use app\Request;
+use think\facade\Session;
 use think\facade\View;
 
 class AdminController extends BaseController
@@ -11,7 +13,14 @@ class AdminController extends BaseController
 
     public function index()
     {
-        return 'hello';
+        return View::fetch('admin@admin_controller/index');
+    }
+
+    public function create(Request $request)
+    {
+        $data=$request->post();
+        Session::set('data',$data);
+        return redirect('../CreateController/index');
     }
 
     public function getdata()
@@ -29,4 +38,8 @@ class AdminController extends BaseController
         View::assign('all_flag',$all_flag);
         return View::fetch('admin@admin_controller/data');
     }
+
+//    public function
+
+
 }
