@@ -17,6 +17,29 @@ class SubmitModel
         return $t_id;
     }
 
+    public function get_docker_info($MI_id,$T_id)
+    {
+
+        $docker_info['web_ip']=Db::table('docker_info')->where(
+           [ ['MI_id','=',$MI_id],
+            ['T_id','=',$T_id]]
+        )->value('web_ip');
+        $docker_info['port']=Db::table('docker_info')->where(
+            [ ['MI_id','=',$MI_id],
+                ['T_id','=',$T_id]]
+        )->value('port');
+        return $docker_info;
+    }
+
+    public function get_token($MI_id,$T_id)
+    {
+        $token=Db::table('match')->where(
+            [ ['MI_id','=',$MI_id],
+                ['T_id','=',$T_id]]
+        )->value('token');
+        return $token;
+    }
+
 
     public function submit($flag,$token,$MI_id)
     {
@@ -118,7 +141,7 @@ class SubmitModel
                 ->update();
         }
 
-        public function getM_id()
+        public function getMI_id()
         {
             $MI_id=Db::table('match_info')->where('is_run',1)->value('MI_id');
             if(!$MI_id)

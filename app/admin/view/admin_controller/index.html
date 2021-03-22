@@ -13,7 +13,6 @@
     <div class="info">
         <span>此比赛平台为原创平台，不得盗链或者商用</span>
         <span>不得对此平台进行任何DDOS攻击</span>
-        <span>不得对平台进行任何形式的扫描，此平台会记录ip还请自重</span>
         <span>若发现此平台存在漏洞，请提交到学习平台社区</span>
         <!-- <span></span>-->
         <span>另有什么疑问或者建议请联系管理人ring_ring</span>
@@ -57,6 +56,15 @@
         <button class="submit_create">点击创建</button>
 <!--    </div>-->
     </form>
+        <form method="POST" action="getdata" >
+            <button class="submit_create">比赛信息</button>
+        </form>
+        <form method="POST" action="runmatch">
+            <button class="submit_create">启动比赛</button>
+        </form>
+        <form method="POST" action="endmatch">
+            <button class="submit_create">结束比赛</button>
+        </form>
 </div>
 </body>
 </html>

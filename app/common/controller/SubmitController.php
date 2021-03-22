@@ -15,11 +15,21 @@ class SubmitController
     {
         $username=Session::get("username");
         $submitmodel=new SubmitModel();
-        $is_team=$submitmodel->check_is_team($username);
-        if(!$is_team)
+        $t_id=$submitmodel->check_is_team($username);
+        if(!$t_id)
         {
             return '请先加入或者创建一个队伍';
         }
+        $submitModel=new SubmitModel();
+        $MI_id=$submitModel->getMI_id();
+        if($MI_id=='当前无比赛进行')
+        {
+            return '当前无比赛进行';
+        }
+        $docker_info=$submitModel->get_docker_info($MI_id,$t_id);
+        $token=$submitModel->get_token($MI_id,$t_id);
+        View::assign('docker_info',$docker_info);
+        View::assign('token',$token);
         return View::fetch('common@submit_controller/index');
     }
 
@@ -29,7 +39,7 @@ class SubmitController
         $flag=$data['flag'];
         $token=$data['token'];
         $submitModel=new SubmitModel();
-        $MI_id=$submitModel->getM_id();
+        $MI_id=$submitModel->getMI_id();
         $res=$submitModel->submit($flag,$token,$MI_id);
 //        var_dump($res);
         if($res!=='提交成功')

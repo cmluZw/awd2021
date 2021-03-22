@@ -54,30 +54,25 @@ class CreateModel
                 $port = 2200 + $i+1;
                 $code = rand(99*($i+1), 999999);
                 $token=substr(md5($code), 8, 16);
-//                for ($j = 0; $j < 5; $j++)
-//                {
-//                    $flag[$i][$j] = $this->flag();
-//                    $index='flag'.($j+1);
-//                    $data=[$index=>$flag[$i][$j]];
-//                    $res=Db::name('flag')->where([
-//                        ['T_id','=',$team_arr[$i]['T_id']],
-//                        ['MI_id','=',$MI_id],
-//                    ])->update($data);
-//                    if(!$res)
-//                    {
-//                        return 'flag插入错误';
-//                    }
-//                }
+                for ($j = 0; $j < 5; $j++)
+                {
+                    $flag[$i][$j] = $this->flag();
+                }
+                $flag_data=['T_id'=>$team_arr[$i]['T_id'],'MI_id'=>$MI_id,'flag1'=>$flag[$i][0],'flag2'=>$flag[$i][1],'flag3'=>$flag[$i][2],'flag4'=>$flag[$i][3],'flag5'=>$flag[$i][4]];
+//                var_dump($flag_data);
+                $res=Db::name('flag')->save($flag_data);
+                if(!$res)
+                {
+                    return 'flag插入错误';
+                }
                 $docker_data=['web_ip'=>$web_ip,'port'=>$port,'T_id'=>$team_arr[$i]['T_id'],'MI_id'=>$MI_id];
                 $docker_res=Db::name('docker_info')->save($docker_data);
                 if(!$docker_res)
                 {
                     return '队伍docker信息插入错误';
                 }
-                $tokenres=Db::name('match')->where([
-                    ['T_id','=',$team_arr[$i]['T_id']],
-                    ['MI_id','=',$MI_id],
-                ])->update(['token'=>$token]);
+                $match_data=['T_id'=>$team_arr[$i]['T_id'],'MI_id'=>$MI_id,'token'=>$token];
+                $tokenres=Db::name('match')->save($match_data);
                 if(!$tokenres)
                 {
                     return '队伍token插入错误';
@@ -109,6 +104,17 @@ class CreateModel
         {
             $visit_code=time();
             return $visit_code;
+        }
+
+
+        public function get_MI_id()
+        {
+            $MI_id=Db::table('match_info')->where('is_run',1)->value('MI_id');
+            if(!$MI_id)
+            {
+                return '当前无比赛正在进行';
+            }
+            return $MI_id;
         }
 
 }

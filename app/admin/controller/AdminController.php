@@ -20,17 +20,28 @@ class AdminController extends BaseController
     {
         $data=$request->post();
         Session::set('data',$data);
-        return redirect('../CreateController/index');
+        return redirect('../CreateController/create');
+    }
+
+    public function runmatch()
+    {
+        return redirect('../MatchController/runmatch');
+    }
+
+    public function endmatch()
+    {
+        return redirect('../MatchController/endmatch');
     }
 
     public function getdata()
     {
         $adminmodel=new AdminModel();
-        $all_match_info=$adminmodel->getall_match_info();
-        $all_match=$adminmodel->getall_match();
+        $MI_id=$adminmodel->get_MI_id();
+        $all_match_info=$adminmodel->getall_match_info($MI_id);
+        $all_match=$adminmodel->getall_match($MI_id);
         $all_team=$adminmodel->getall_team();
         $all_user=$adminmodel->getall_user();
-        $all_flag=$adminmodel->getall_flag();
+        $all_flag=$adminmodel->getall_flag($MI_id);
         View::assign('all_match_info',$all_match_info);
         View::assign('all_match',$all_match);
         View::assign('all_team',$all_team);
