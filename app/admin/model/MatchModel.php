@@ -31,10 +31,18 @@ class MatchModel
         return '比赛'.$match_name.'终止';
     }
 
-    public function runmatch($MI_id)
+    public function runmatch($MI_id,$content)
     {
-
+        $team_arr=Db::table('team')->select();
+        $team_num=count($team_arr);
+        $db_end_time=Db::table('match_info')->where('is_run',1)->value('end_time');
+        $end_time = strtotime($db_end_time);
+        $cmd="python ../docker/start.py $team_num ../docker/web $end_time";
+        $is_ok=exec($cmd);
+        if(!$is_ok)
+        {
+            return '启动失败,命令为:'.$cmd;
+        }
+        return '启动成功';
     }
-
-
 }

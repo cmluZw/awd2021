@@ -10,7 +10,9 @@ class MatchController extends BaseController
 
     public function runmatch()
     {
-        return 'run';
+        $matchModel=new MatchModel();
+        $res=$matchModel->runmatch(2,'esay_cmd');
+        echo $res;
     }
 
     public function endmatch()
