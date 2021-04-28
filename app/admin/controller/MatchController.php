@@ -22,4 +22,7 @@ class MatchController extends BaseController
         $res=$matchModel->endmatch($MI_id);
         echo $res;
     }
+
+
+
 }

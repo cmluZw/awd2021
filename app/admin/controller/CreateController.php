@@ -24,8 +24,11 @@ class CreateController extends BaseController
         var_dump($res);
         $MI_id=$createmodel->get_MI_id();
         $res=$createmodel->create_flag($MI_id);
+        $res2=$createmodel->create_web($MI_id);
          var_dump($res);
     }
+
+
 
 
 }

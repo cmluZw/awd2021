@@ -117,4 +117,21 @@ class CreateModel
             return $MI_id;
         }
 
+
+
+        public function create_web($MI_id)
+        {
+            $path="../app/admin/docker/web/flag_";
+            $team_arr=Db::table('team')->select();
+            $num=count($team_arr);
+            $flag=Db::table('flag')->where('MI_id',$MI_id)->select();
+            for($i=0;$i<5;$i++)
+            {
+                for($j=0;$j<$num;$j++)
+                {
+                file_put_contents($path.($i+1).''," flag=".$flag[$j]['flag'.($i+1)].PHP_EOL,FILE_APPEND);
+                }
+            }
+            return 'flag写入文件成功';
+        }
 }

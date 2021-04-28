@@ -37,7 +37,7 @@ class MatchModel
         $team_num=count($team_arr);
         $db_end_time=Db::table('match_info')->where('is_run',1)->value('end_time');
         $end_time = strtotime($db_end_time);
-        $cmd="python ../docker/start.py $team_num ../docker/web $end_time";
+        $cmd="python ../docker/start1.py $team_num ../docker/web $end_time";
         $is_ok=exec($cmd);
         if(!$is_ok)
         {
