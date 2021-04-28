@@ -1,56 +1,47 @@
-ThinkPHP 6.0
-===============
+在去年制作的awd-lastest的基础上，今年采用了tp6进行创作，旨在学习tp6
 
-> 运行环境要求PHP7.1+，兼容PHP8.0。
+##目录
+* admin
+    *     controller
+    *     docker
+    *     model
+    *     validate
+    *     view
+* common
+    * controller
+    * model
+    * validate
+    * view
+   
+   
 
-[官方应用服务市场](https://market.topthink.com) | [`ThinkAPI`——官方统一API服务](https://docs.topthink.com/think-api)
-
-ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布。
-
-## 主要新特性
-
-* 采用`PHP7`强类型（严格模式）
-* 支持更多的`PSR`规范
-* 原生多应用支持
-* 更强大和易用的查询
-* 全新的事件系统
-* 模型事件和数据库事件统一纳入事件系统
-* 模板引擎分离出核心
-* 内部功能中间件化
-* SESSION/Cookie机制改进
-* 对Swoole以及协程支持改进
-* 对IDE更加友好
-* 统一和精简大量用法
-
-## 安装
-
+##环境
+> 运行环境要求PHP7.1+，兼容PHP8.0
+> 关于本项目中用到的awd-lastest镜像是一个有lamp环境的镜像，可自行搭建，如有需要可留言
+> 要求安装docker
 ~~~
-composer create-project topthink/think tp 6.0.*
+   ape-get install docker
 ~~~
 
-如果需要更新框架使用
-~~~
-composer update topthink/framework
-~~~
 
-## 文档
+##博客
+http://148.70.34.179/blog
 
-[完全开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
 
-## 参与开发
+##界面
+* 用户界面
 
-请参阅 [ThinkPHP 核心框架包](https://github.com/top-think/framework)。
+![图片](https://user-images.githubusercontent.com/78641812/116379890-09c4c680-a846-11eb-930b-5904b139ec01.png)
 
-## 版权信息
+![图片](https://user-images.githubusercontent.com/78641812/116379972-206b1d80-a846-11eb-9bfb-f7caf8cdad2d.png)
 
-ThinkPHP遵循Apache2开源协议发布，并提供免费使用。
+![图片](https://user-images.githubusercontent.com/78641812/116380082-3842a180-a846-11eb-9278-c8206ca8602e.png)
 
-本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2006-2020 by ThinkPHP (http://thinkphp.cn)
+* 管理界面
+![图片](https://user-images.githubusercontent.com/78641812/116380230-58726080-a846-11eb-9b28-6fd895739ddf.png)
 
-All rights reserved。
 
-ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
+##前端
+*由于审美拉跨，所以前端一切从简
 
-更多细节参阅 [LICENSE.txt](LICENSE.txt)
